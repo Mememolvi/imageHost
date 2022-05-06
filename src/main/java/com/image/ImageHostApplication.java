@@ -1,6 +1,8 @@
 package com.image;
 
+import com.image.dto.ImageDTO;
 import com.image.repository.ImageRepository;
+import com.image.service.ImageService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.cfg.Environment;
@@ -13,7 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ImageHostApplication implements CommandLineRunner {
 	private static final Log LOGGER = LogFactory.getLog(ImageHostApplication.class);
 	@Autowired
-	ImageRepository imageRepository;
+	ImageService imageService;
 
 //	@Autowired
 //	Environment environment;
@@ -24,7 +26,10 @@ public class ImageHostApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(imageRepository.findById(1).get().getImage_id());
+//		System.out.println(imageService.getImage(1));
+		ImageDTO imageDTO = imageService.getImage(1);
+		imageService.addImage(imageDTO);
+
 	}
 
 }
