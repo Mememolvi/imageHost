@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/imagehost")
 public class ImageAPI {
@@ -20,13 +22,19 @@ public class ImageAPI {
         return new ResponseEntity<>(imageDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/images/all/{pageNumber}")
+    public ResponseEntity<List<ImageDTO>> getAllImages(@PathVariable Integer pageNumber) throws Exception {
+        List<ImageDTO> imageDTOList = imageService.findAll(pageNumber);
+        return new ResponseEntity<>(imageDTOList, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/images")
     public ResponseEntity<String> addImage(@RequestParam("imageFile") MultipartFile file) throws Exception {
         byte[] bytes = file.getBytes();
         ImageDTO imageDTO = new ImageDTO();
         imageDTO.setPicByte(bytes);
         Integer id = imageService.addImage(imageDTO);
-        return new ResponseEntity<>("SUCCESS :"+id, HttpStatus.CREATED);
+        return new ResponseEntity<>("SUCCESS :" + id, HttpStatus.CREATED);
     }
 
 }
