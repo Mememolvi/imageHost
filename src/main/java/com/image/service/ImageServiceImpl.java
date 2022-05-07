@@ -1,7 +1,7 @@
 package com.image.service;
 
 import com.image.dto.ImageDTO;
-import com.image.entity.ImageEntity;
+import com.image.entity.Image;
 import com.image.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,22 +22,22 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageDTO getImage(int id) throws Exception {
-        Optional<ImageEntity> imageEntityOP = imageRepository.findById(id);
-        ImageEntity imageEntity = imageEntityOP.get();
+        Optional<Image> imageEntityOP = imageRepository.findById(id);
+        Image image = imageEntityOP.get();
         ImageDTO imageDTO = new ImageDTO();
-        imageDTO.setPicByte(imageEntity.getPicByte());
+        imageDTO.setPicByte(image.getPicByte());
         return imageDTO;
     }
 
     @Override
     public List<ImageDTO> findAll(int pageNumber) throws Exception {
         Pageable pageWithNumber = PageRequest.of(pageNumber, 2);
-        Page<ImageEntity> imageEntityPage = imageRepository.findAll(pageWithNumber);
-        List<ImageEntity> entityList = imageEntityPage.getContent();
+        Page<Image> imageEntityPage = imageRepository.findAll(pageWithNumber);
+        List<Image> entityList = imageEntityPage.getContent();
         List<ImageDTO> imageDTOList = new ArrayList<>();
-        for(ImageEntity imageEntity : entityList) {
+        for (Image image : entityList) {
             ImageDTO imageDTO = new ImageDTO();
-            imageDTO.setPicByte(imageEntity.getPicByte());
+            imageDTO.setPicByte(image.getPicByte());
             imageDTOList.add(imageDTO);
         }
         return imageDTOList;
@@ -45,10 +45,17 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public int addImage(ImageDTO imageDTO) throws Exception {
-        ImageEntity imageEntity = new ImageEntity();
-        imageEntity.setPicByte(imageDTO.getPicByte());
-        imageRepository.save(imageEntity);
-        return imageEntity.getImage_id();
+        Image image = new Image();
+        image.setPicByte(imageDTO.getPicByte());
+        imageRepository.save(image);
+        return image.getImage_id();
 
+    }
+
+    @Override
+    public List<Integer> findAllImageId(int pageNumber) throws Exception {
+        Pageable pageWithNumber = PageRequest.of(pageNumber, 3);
+        Page<Integer> imageEntityPage = imageRepository.findAllImageId(pageWithNumber);
+        return imageEntityPage.getContent();
     }
 }

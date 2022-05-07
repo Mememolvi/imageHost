@@ -6,17 +6,17 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "image")
-public class ImageEntity {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer image_id;
     @Column(name = "image", length = 1000)
     private byte[] picByte;
 
-    public ImageEntity()
+    public Image()
     {}
 
-    public ImageEntity(Integer image_id, byte[] picByte) {
+    public Image(Integer image_id, byte[] picByte) {
         this.image_id = image_id;
         this.picByte = picByte;
     }
@@ -41,7 +41,7 @@ public class ImageEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ImageEntity image = (ImageEntity) o;
+        Image image = (Image) o;
         return Objects.equals(image_id, image.image_id) && Arrays.equals(picByte, image.picByte);
     }
 

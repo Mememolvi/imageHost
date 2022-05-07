@@ -37,6 +37,12 @@ public class ImageAPI {
         return new ResponseEntity<>(imageDTOList, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/images/all/id/{pageNumber}")
+    public ResponseEntity<List<Integer>> getAllImagesId(@PathVariable Integer pageNumber) throws Exception {
+        List<Integer> imageIdList = imageService.findAllImageId(pageNumber);
+        return new ResponseEntity<>(imageIdList, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/images")
     public ResponseEntity<String> addImage(@RequestParam("imageFile") MultipartFile file) throws Exception {
         byte[] bytes = file.getBytes();

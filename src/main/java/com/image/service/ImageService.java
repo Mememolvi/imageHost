@@ -10,4 +10,6 @@ public interface ImageService {
     ImageDTO getImage(int pageNumber) throws Exception;
 
     List<ImageDTO> findAll(int pageNumber) throws Exception;
+
+    List<Integer> findAllImageId(int pageNumber) throws Exception;
 }
