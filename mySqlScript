@@ -1,0 +1,12 @@
+drop database if exists image_db;
+create database image_db;
+use  image_db;
+create table image(
+  image_id int AUTO_INCREMENT,
+  image MEDIUMBLOB,
+  constraint image_id_pk primary key (image_id)
+);
+
+
+
+mysqld --max_allowed_packet= 10M
