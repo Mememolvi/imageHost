@@ -14,9 +14,7 @@ This is a spring based image host with a MySQL databse.
 4. Spring Data
 5. JPA
 
-## mySqlScript
-
-mySQL script for the project contained in file mySqlScript
+## mySQL script for the project contained in file mySqlScript
 
 ## API
 
